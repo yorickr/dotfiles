@@ -152,17 +152,20 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -- -5% #decrease sound volume
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
+#bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume
+#bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id volumemanage up
+bindsym XF86AudioLowerVolume exec --no-startup-id volumemanage down
+bindsym XF86AudioMute exec --no-startup-id volumemanage mute
+#bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
 
 #bindsym XF86AudioRaiseVolume exec amixer -q set Master 3dB+ unmute
 #bindsym XF86AudioLowerVolume exec amixer -q set Master 3dB- unmute
 #bindsym XF86AudioMute exec amixer -q set Master toggle
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5 
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5 
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5 
 
 # Touchpad controls
 #bindsym XF86TouchpadToggle exec sh /home/imegumii/Projects/TouchpadOff.sh 
@@ -200,8 +203,9 @@ bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
 # Auto start 
-exec --no-startup-id mailcheck
+exec mailcheck 
 for_window [class="Main.py" instance="guake"] floating enable
+for_window [instance="sun-awt-X11-XFramePeer"] floating enable
 exec --no-startup-id guake
 exec --no-startup-id compton -c -b
 
