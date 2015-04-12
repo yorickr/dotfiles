@@ -1,0 +1,61 @@
+out_to_x no
+own_window no
+out_to_console yes
+double_buffer no
+background no
+update_interval 1.0
+total_run_times 0
+short_units yes
+if_up_strictness address
+use_spacer left
+override_utf8_locale no
+cpu_avg_samples 2
+
+## Sensors examples
+# Top Process: ${top name 1}
+# Root: {fs_used /}/${fs_size /} /home ${fs_free /home} /${fs_size /home}
+# Load: ${loadavg 1} ${loadavg 2} ${loadavg 3} 
+# Load: $loadavg
+# Swap: ${swap}/${swapmax} (${swapperc}%)
+# Processes: ${running_processes} / ${processes}
+# CPU: $cpu% 
+# HDD: $diskio_read :Read $diskio_write :Write
+# Temp: Core0: ${exec sensors | awk '/Core 0/ {print $3}'} Core1: ${exec sensors | awk '/Core 1/ {print $3}'}
+# Freq: ${freq cpu0}Mhz
+# Uptime: $uptime
+# Kernel:$kernel on $machine
+# Name: $nodename - $sysname
+## Stuff after 'TEXT' will be formatted on screen
+
+TEXT
+
+#$nodename $kernel Uptime: $uptime | \
+#Root: ${fs_used /} / ${fs_size /} | \
+#Home: ${fs_used /home} / ${fs_size /home} | \
+#${if_up eth0}eth0 ${addr eth0} | ${endif}\
+#${if_up wlp3s0} wlp3s0 ${addr wlp3s0} | ${endif}\
+#CPU ${cpu cpu1}% ${freq_g 0}GHz ${exec sensors | grep -m 1 "Core 0"|awk '{print $3}' | cut -d "+" -f 2} | \
+#RAM: ${exec free -h | grep -m 1 Mem | awk '{print $3}'} / ${exec free -h | grep -m 1 Mem | awk '{print $2}'} | \   
+#Battery: ${battery BAT0} ${battery_time BAT0} | \
+#${exec weather --headers="Temperature" -q | awk '/Temperature/ {print $2}'}C ${exec weather --headers="Sky conditions" -q | awk '/Sky conditions/ {print $3 " " $4}'} | \
+#Volume: ${exec pactl list sinks | grep Volume | head -n 1 | awk '{print $5}'}
+#${time %a %d-%m-%y} ${time %H:%M:%S} \
+
+[
+
+#{ "full_text" : "$kernel" , "color" : "\#ffffff" },
+#{ "full_text" : "ROOT: ${fs_used /}/${fs_size /}" , "color" : "\#ffffff" },
+{ "full_text" : "${if_up wlp3s0}TEMP: ${exec tempHome}C${endif}" , "color" : "\#FF9900" },
+{ "full_text" : "HOME: ${fs_used /home}/${fs_size /home}" , "color" : "\#9999FF" },
+{ "full_text" : "CPU: ${cpu cpu1}% ${exec sensors | grep -m 1 "Core 0"|awk '{print $3}' | cut -d "+" -f 2}" , "color" : "${if_match ${exec sensors | grep -m 1 "Core 0"|awk '{print $3}' | cut -d "+" -f 2 | cut -d "." -f 1} > 80}\#FF0000${else}\#00FFCC${endif}" },
+{ "full_text" : "RAM: ${exec free -h | grep -m 1 Mem | awk '{print $3}'}/${exec free -h | grep -m 1 Mem | awk '{print $2}'}" , "color" : "${if_match ${exec free -m | grep -m 1 Mem | awk '{print $3}'} > 3300}\#CC3300${else}\#3399FF${endif}" },
+{ "full_text" : "${if_up wlp3s0}WLAN: D ${downspeed wlp3s0} U ${upspeed wlp3s0} ${addr wlp3s0}${else} WLAN: DOWN ${endif}" , "color" : "${if_up wlp3s0}\#009900${else}\#FF0000${endif}" },
+{ "full_text" : "BAT: ${battery_short BAT0} ${battery_time BAT0}" , "color" : "${if_match ${battery_percent} > 10}\#00ff00${else}\#ff0000${endif}" },
+{ "full_text" : "VOL: ${if_match "${exec pactl list sinks | grep Mute | awk '{print $2}'}" != "no"}MUTE${else}${exec pactl list sinks | grep Volume | head -n 1 | awk '{print $5}'}${endif}" , "color" : "${if_match ${exec pactl list sinks | grep Volume | head -n 1 | awk '{print $5}' | cut -d "%" -f 1} > 90}\#CC3300${else}\#FFFF00${endif}" },
+{ "full_text" : "UP: ${uptime} TIME: ${time %a %d-%m-%y} ${time %H:%M:%S}" , "color" : "\#00FFFF" }
+],
+
+
+
+
+
