@@ -45,7 +45,7 @@ TEXT
 
 #{ "full_text" : "$kernel" , "color" : "\#ffffff" },
 #{ "full_text" : "ROOT: ${fs_used /}/${fs_size /}" , "color" : "\#ffffff" },
-{ "full_text" : "${if_up wlp3s0}TEMP: ${exec tempHome}C${endif}" , "color" : "\#FF9900" },
+#{ "full_text" : "${if_up wlp3s0}TEMP: ${exec tempHome}C${endif}" , "color" : "\#FF9900" },
 { "full_text" : "HOME: ${fs_used /home}/${fs_size /home}" , "color" : "\#9999FF" },
 { "full_text" : "CPU: ${cpu cpu1}% ${exec sensors | grep -m 1 "Core 0"|awk '{print $3}' | cut -d "+" -f 2}" , "color" : "${if_match ${exec sensors | grep -m 1 "Core 0"|awk '{print $3}' | cut -d "+" -f 2 | cut -d "." -f 1} > 80}\#FF0000${else}\#00FFCC${endif}" },
 { "full_text" : "RAM: ${exec free -h | grep -m 1 Mem | awk '{print $3}'}/${exec free -h | grep -m 1 Mem | awk '{print $2}'}" , "color" : "${if_match ${exec free -m | grep -m 1 Mem | awk '{print $3}'} > 3300}\#CC3300${else}\#3399FF${endif}" },
