@@ -45,12 +45,12 @@ TEXT
 
 #{ "full_text" : "$kernel" , "color" : "\#ffffff" },
 #{ "full_text" : "ROOT: ${fs_used /}/${fs_size /}" , "color" : "\#ffffff" },
-#{ "full_text" : "${if_up wlp3s0}TEMP: ${exec tempHome}C${endif}" , "color" : "\#FF9900" },
-{ "full_text" : "HOME: ${fs_used /home}/${fs_size /home}" , "color" : "\#9999FF" },
+#{ "full_text" : "${if_up wlp2s0}TEMP: ${exec tempHome}C${endif}" , "color" : "\#FF9900" },
+{ "full_text" : "HOME: ${fs_used /home}/${fs_size /home/imegumii}" , "color" : "\#9999FF" },
 { "full_text" : "CPU: ${cpu cpu1}% ${exec sensors | grep -m 1 "Core 0"|awk '{print $3}' | cut -d "+" -f 2}" , "color" : "${if_match ${exec sensors | grep -m 1 "Core 0"|awk '{print $3}' | cut -d "+" -f 2 | cut -d "." -f 1} > 80}\#FF0000${else}\#00FFCC${endif}" },
-{ "full_text" : "RAM: ${exec free -h | grep -m 1 Mem | awk '{print $3}'}/${exec free -h | grep -m 1 Mem | awk '{print $2}'}" , "color" : "${if_match ${exec free -m | grep -m 1 Mem | awk '{print $3}'} > 3300}\#CC3300${else}\#3399FF${endif}" },
-{ "full_text" : "${if_up wlp3s0}WLAN: D ${downspeed wlp3s0} U ${upspeed wlp3s0} ${addr wlp3s0}${else} WLAN: DOWN ${endif}" , "color" : "${if_up wlp3s0}\#009900${else}\#FF0000${endif}" },
-{ "full_text" : "BAT: ${battery_short BAT0} ${battery_time BAT0}" , "color" : "${if_match ${battery_percent} > 10}\#00ff00${else}\#ff0000${endif}" },
+{ "full_text" : "RAM: ${exec free -h | grep -m 1 Mem | awk '{print $3}'}/${exec free -h | grep -m 1 Mem | awk '{print $2}'}" , "color" : "${if_match ${exec free -m | grep -m 1 Mem | awk '{print $3}'} > 7000}\#CC3300${else}\#3399FF${endif}" },
+{ "full_text" : "${if_up wlp2s0}WLAN: D ${downspeed wlp2s0} U ${upspeed wlp2s0} ${addr wlp2s0}${else} WLAN: DOWN ${endif}" , "color" : "${if_up wlp2s0}\#009900${else}\#FF0000${endif}" },
+{ "full_text" : "BAT: ${battery_short BAT0} ${battery_time BAT0} ${exec battery -w -c}" , "color" : "${if_match ${battery_percent} > 10}\#00ff00${else}\#ff0000${endif}" },
 { "full_text" : "♪: ${if_match "${exec pactl list sinks | grep Mute | awk '{print $2}'}" != "no"}MUTE${else}${exec pactl list sinks | grep Volume | head -n 1 | awk '{print $5}'}${endif}" , "color" : "${if_match ${exec pactl list sinks | grep Volume | head -n 1 | awk '{print $5}' | cut -d "%" -f 1} > 90}\#CC3300${else}\#FFFF00${endif}" },
 { "full_text" : "UP: ${uptime} TIME: ${time %a %d-%m-%y} ${time %H:%M:%S}" , "color" : "\#00FFFF" }
 ],
