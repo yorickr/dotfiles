@@ -79,16 +79,35 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
+
+export VISUAL=vim
+export EDITOR='vim'
+
 alias fu='sudo $(fc -ln -1)'
-alias fuck='$(thefuck $(fc -ln -1))'
-source /usr/share/doc/pkgfile/command-not-found.zsh
 
 alias q='exit'
 alias reload='source ~/.zshrc'
 
+alias server='ssh -p 777 imegumii@www.imegumii.nl'
+alias router='ssh -p 778 root@www.imegumii.nl'
+alias centos='ssh imegumii@centos.imegumii.nl'
+
+alias cmrst='sudo systemctl stop connman.service && sudo systemctl start connman.service'
+alias psaux='ps aux | grep '
+alias backuphome='rdiff-backup -v5 --exclude /home/imegumii/Dropbox --exclude /home/imegumii/.local --exclude /home/imegumii/.cache --exclude /home/imegumii/Documents/3TB --exclude /home/imegumii/Documents/1TB --remote-schema "ssh -C -p 777 %s rdiff-backup --server" /home/imegumii imegumii@www.imegumii.nl::/media/HDD/Backups'
+
+alias starti3="startx /usr/bin/i3"
+alias startcinnamon="startx /usr/bin/cinnamon-session"
+
+alias audioserver='sh ~/Scripts/setaudioserver.sh s'
+alias audiolocal='sh ~/Scripts/setaudioserver.sh'
+
+alias mp='sh ~/Scripts/mp.sh'
+
+
 alias mv='mv -v'
 alias rm='rm -v'
-alias cp='cp -r'
+alias cp='cp -v'
 
 #Git alias
 alias st='git status'
@@ -103,3 +122,11 @@ alias gtl='git tag -l -n9'
 alias gpus='git push'
 alias gpul='git pull'
 alias gm='git merge'
+alias rmorig='find -name "*.orig" -exec rm {} \;'
+
+
+# Auto startx depending on the tty
+if [[ -z $DISPLAY ]] && (( $EUID != 0 )) {
+     [[ ${TTY/tty} != $TTY ]] && (( ${TTY:8:1} <= 3 )) &&
+               exec startx &
+}
