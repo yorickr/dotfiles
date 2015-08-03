@@ -81,30 +81,42 @@ source $ZSH/oh-my-zsh.sh
 #
 
 export VISUAL=vim
-export EDITOR='vim'
+export EDITOR=vim
+if [ -d "$HOME/bin" ] ; then
+      PATH="$HOME/bin:$PATH"
+fi
+export USE_CCACHE=1
+
+alias autoclick='watch -n 0.1 xdotool click 1'
 
 alias fu='sudo $(fc -ln -1)'
 
 alias q='exit'
 alias reload='source ~/.zshrc'
 
+#SSH
 alias server='ssh -p 777 imegumii@www.imegumii.nl'
 alias router='ssh -p 778 root@www.imegumii.nl'
 alias centos='ssh imegumii@centos.imegumii.nl'
 
+#Connman
 alias cmrst='sudo systemctl stop connman.service && sudo systemctl start connman.service'
-alias psaux='ps aux | grep '
-alias backuphome='rdiff-backup -v5 --exclude /home/imegumii/Dropbox --exclude /home/imegumii/.local --exclude /home/imegumii/.cache --exclude /home/imegumii/Documents/3TB --exclude /home/imegumii/Documents/1TB --remote-schema "ssh -C -p 777 %s rdiff-backup --server" /home/imegumii imegumii@www.imegumii.nl::/media/HDD/Backups'
 
+#Ease of use
+alias psaux='ps aux | grep '
+alias backuphome='rdiff-backup -v5 --exclude /home/imegumii/Dropbox --exclude /home/imegumii/.local --exclude /home/imegumii/.cache --exclude /home/imegumii/Documents/3TB --exclude /home/imegumii/Documents/1TB --exclude /home/imegumii/android --exclude /home/imegumii/.ccache --remote-schema "ssh -C -p 777 %s rdiff-backup --server" /home/imegumii imegumii@www.imegumii.nl::/media/HDD/Backups'
 alias starti3="startx /usr/bin/i3"
 alias startcinnamon="startx /usr/bin/cinnamon-session"
+alias trans="transmission-remote-cli"
 
+#Audio
 alias audioserver='sh ~/Scripts/setaudioserver.sh s'
 alias audiolocal='sh ~/Scripts/setaudioserver.sh'
 
+#Music
 alias mp='sh ~/Scripts/mp.sh'
 
-
+#Basic commands
 alias mv='mv -v'
 alias rm='rm -v'
 alias cp='cp -v'
@@ -126,7 +138,7 @@ alias rmorig='find -name "*.orig" -exec rm {} \;'
 
 
 # Auto startx depending on the tty
-if [[ -z $DISPLAY ]] && (( $EUID != 0 )) {
-     [[ ${TTY/tty} != $TTY ]] && (( ${TTY:8:1} <= 3 )) &&
-               exec startx &
-}
+#if [[ -z $DISPLAY ]] && (( $EUID != 0 )) {
+     #[[ ${TTY/tty} != $TTY ]] && (( ${TTY:8:1} <= 3 )) &&
+               #exec startx &
+#}
