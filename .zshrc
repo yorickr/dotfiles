@@ -97,7 +97,7 @@ alias reload='source ~/.zshrc'
 #SSH
 alias server='ssh -p 777 imegumii@www.imegumii.nl'
 alias router='ssh -p 778 root@www.imegumii.nl'
-alias centos='ssh imegumii@centos.imegumii.nl'
+alias gitlab='ssh imegumii@git.imegumii.nl'
 
 #Connman
 alias cmrst='sudo systemctl stop connman.service && sudo systemctl start connman.service'
@@ -105,9 +105,9 @@ alias cmrst='sudo systemctl stop connman.service && sudo systemctl start connman
 #Ease of use
 alias psaux='ps aux | grep '
 alias backuphome='rdiff-backup -v5 --exclude /home/imegumii/Dropbox --exclude /home/imegumii/.local --exclude /home/imegumii/.cache --exclude /home/imegumii/Documents/3TB --exclude /home/imegumii/Documents/1TB --exclude /home/imegumii/android --exclude /home/imegumii/.ccache --remote-schema "ssh -C -p 777 %s rdiff-backup --server" /home/imegumii imegumii@www.imegumii.nl::/media/HDD/Backups'
-alias starti3="startx /usr/bin/i3"
-alias startcinnamon="startx /usr/bin/cinnamon-session"
 alias trans="transmission-remote-cli"
+alias nconn="connman-ncurses"
+alias chromeproxy="chromium --proxy-server="socks://localhost:48000"& ssh -2 -ND 48000 -p 777 imegumii@www.imegumii.nl"
 
 #Audio
 alias audioserver='sh ~/Scripts/setaudioserver.sh s'
