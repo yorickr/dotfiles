@@ -108,6 +108,9 @@ alias backuphome='rdiff-backup -v5 --exclude /home/imegumii/Dropbox --exclude /h
 alias trans="transmission-remote-cli"
 alias nconn="connman-ncurses"
 alias chromeproxy="chromium --proxy-server="socks://localhost:48000"& ssh -2 -ND 48000 -p 777 imegumii@www.imegumii.nl"
+cdls() {cd "$@" && ls; }
+alias cd=cdls
+
 
 #Audio
 alias audioserver='sh ~/Scripts/setaudioserver.sh s'
