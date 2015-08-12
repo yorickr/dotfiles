@@ -104,7 +104,7 @@ alias cmrst='sudo systemctl stop connman.service && sudo systemctl start connman
 
 #Ease of use
 alias psaux='ps aux | grep '
-alias backuphome='rdiff-backup -v5 --exclude /home/imegumii/Dropbox --exclude /home/imegumii/.local --exclude /home/imegumii/.cache --exclude /home/imegumii/Documents/3TB --exclude /home/imegumii/Documents/1TB --exclude /home/imegumii/android --exclude /home/imegumii/.ccache --remote-schema "ssh -C -p 777 %s rdiff-backup --server" /home/imegumii imegumii@www.imegumii.nl::/media/HDD/Backups'
+alias backuphome='rdiff-backup -v5 --exclude /home/imegumii/Dropbox --exclude /home/imegumii/cloud --exclude /home/imegumii/.local --exclude /home/imegumii/.cache --exclude /home/imegumii/Documents/3TB --exclude /home/imegumii/Documents/1TB --exclude /home/imegumii/android --exclude /home/imegumii/.ccache --remote-schema "ssh -C -p 777 %s rdiff-backup --server" /home/imegumii imegumii@www.imegumii.nl::/media/HDD/Backup/Laptop'
 alias trans="transmission-remote-cli"
 alias nconn="connman-ncurses"
 alias chromeproxy="chromium --proxy-server="socks://localhost:48000"& ssh -2 -ND 48000 -p 777 imegumii@www.imegumii.nl"
