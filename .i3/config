@@ -64,9 +64,9 @@ bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
 
-bindsym $mod+s gsplit h
+bindsym $mod+s split v
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+v split h
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -234,12 +234,14 @@ for_window [instance="sun-awt-X11-XFramePeer"] floating enable
 for_window [class="jetbrains-idea-ce"] floating disable
 for_window [class="jetbrains-studio"] floating disable
 for_window [instance="sun-awt-X11-XDialogPeer"] floating enable
+assign [class="ownCloud"] 10
 exec --no-startup-id guake
 exec --no-startup-id redshift -c .config/redshift.conf
 exec --no-startup-id compton -cb
-exec --no-startup-id feh --bg-scale /home/imegumii/background.jpg
+exec --no-startup-id feh --bg-scale /home/imegumii/Backgrounds/background.jpg
+exec --no-startup-id owncloud
 exec --no-startup-id dropbox-cli start
-exec --no-startup-id i3lock -i /home/imegumii/background.jpg
+exec --no-startup-id i3lock -i /home/imegumii/Backgrounds/background.png
 exec --no-startup-id sudo tlp start
 
 # Remove borders
