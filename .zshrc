@@ -86,6 +86,9 @@ if [ -d "$HOME/bin" ] ; then
       PATH="$HOME/bin:$PATH"
 fi
 export USE_CCACHE=1
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
 
 alias autoclick='watch -n 0.1 xdotool click 1'
 
@@ -97,27 +100,29 @@ alias reload='source ~/.zshrc'
 #SSH
 alias server='ssh -p 777 imegumii@www.imegumii.nl'
 alias router='ssh -p 778 root@www.imegumii.nl'
-alias gitlab='ssh imegumii@git.imegumii.nl'
+alias digitalocean='ssh imegumii@git.imegumii.nl'
 
 #Connman
 alias cmrst='sudo systemctl stop connman.service && sudo systemctl start connman.service'
 
 #Ease of use
 alias psaux='ps aux | grep '
-alias backuphome='rdiff-backup -v5 --exclude /home/imegumii/Dropbox --exclude /home/imegumii/cloud --exclude /home/imegumii/.local --exclude /home/imegumii/.cache --exclude /home/imegumii/Documents/3TB --exclude /home/imegumii/Documents/1TB --exclude /home/imegumii/android --exclude /home/imegumii/.ccache --remote-schema "ssh -C -p 777 %s rdiff-backup --server" /home/imegumii imegumii@www.imegumii.nl::/media/HDD/Backup/Laptop'
-alias trans="transmission-remote-cli"
+alias backuphome='rdiff-backup -v5 --exclude /home/imegumii/Dropbox --exclude /home/imegumii/cloud --exclude /home/imegumii/.local --exclude /home/imegumii/.cache --exclude /home/imegumii/Documents/3TB --exclude /home/imegumii/Documents/Drives --exclude /home/imegumii/VirtualBox\ VMs --exclude /home/imegumii/Documents/1TB --exclude /home/imegumii/android --exclude /home/imegumii/.ccache --remote-schema "ssh -C -p 777 %s rdiff-backup --server" /home/imegumii imegumii@www.imegumii.nl::/media/HDD/Backup/Laptop'
 alias nconn="connman-ncurses"
-alias chromeproxy="chromium --proxy-server="socks://localhost:48000"& ssh -2 -ND 48000 -p 777 imegumii@www.imegumii.nl"
+alias chromeproxy="killall chromium & chromium --proxy-server="socks://localhost:48000"& ssh -2 -ND 48000 -p 777 imegumii@www.imegumii.nl"
+alias virtman="ssh -p 777 -L localhost:8000:localhost:8000 -L localhost:6080:localhost:6080 imegumii@www.imegumii.nl"
 cdls() {builtin cd "$@" && ls; }
 alias cd=cdls
-
+alias sizeof='du -d 1 -h'
+alias yaup="yaourt -Syua && sudo paccache -r && sudo paccache -ruk0 &&  yaourt -Rs 'yaourt -Qtdq' "
+alias startxw8="startx /usr/bin/virtualbox --startvm 6df6044b-26be-415f-8e78-3f1e7d149399 --fullscreen"
 
 #Audio
 alias audioserver='sh ~/Scripts/setaudioserver.sh s'
 alias audiolocal='sh ~/Scripts/setaudioserver.sh'
 
 #Music
-alias mp='sh ~/Scripts/mp.sh'
+#alias mp='sh ~/Scripts/mp.sh'
 
 #Basic commands
 alias mv='mv -v'
@@ -137,6 +142,7 @@ alias gtl='git tag -l -n9'
 alias gpus='git push'
 alias gpul='git pull'
 alias gm='git merge'
+alias sta='git stash'
 alias rmorig='find -name "*.orig" -exec rm {} \;'
 
 
@@ -145,3 +151,9 @@ alias rmorig='find -name "*.orig" -exec rm {} \;'
      #[[ ${TTY/tty} != $TTY ]] && (( ${TTY:8:1} <= 3 )) &&
                #exec startx &
 #}
+
+
+if [ -n "$DESKTOP_SESSION" ];then
+  eval $(gnome-keyring-daemon --start)
+  export SSH_AUTH_SOCK
+fi

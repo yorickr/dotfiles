@@ -27,7 +27,7 @@ font pango:DejaVu Sans Mono 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id sakura
+bindsym $mod+Return exec --no-startup-id xfce4-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -83,7 +83,7 @@ bindsym Control+$mod+l exec --no-startup-id xautolock -locknow
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 #bindsym $mod+a focus parent
@@ -150,6 +150,68 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+set $base00 #1B2B34
+set $base01 #343D46
+set $base02 #4F5B66
+set $base03 #65737E
+set $base04 #A7ADBA
+set $base05 #C0C5CE
+set $base06 #CDD3DE
+set $base07 #D8DEE9
+set $base08 #EC5f67
+set $base09 #F99157
+set $base0A #FAC863
+set $base0B #99C794
+set $base0C #5FB3B3
+set $base0D #6699CC
+set $base0E #C594C5
+set $base0F #AB7967
+
+client.focused $base0D $base0D $base00 $base01
+client.focused_inactive $base02 $base02 $base03 $base01
+client.unfocused $base01 $base01 $base03 $base01
+client.urgent $base02 $base08 $base07 $base08
+
+## remember to add the rest of your configuration
+
+bar {
+        position top
+        status_command i3blocks -c ~/.i3/i3blocks.conf
+        font pango:Fira Code 10, FontAwesome 8
+        strip_workspace_numbers yes
+
+
+				colors {
+        separator $base03
+        background $base01
+        statusline $base05
+        focused_workspace $base0C $base0D $base00
+        active_workspace $base02 $base02 $base07
+        inactive_workspace $base01 $base01 $base03
+        urgent_workspace $base08 $base08 $base07
+    }
+}
+
+
+
+#bar {
+        #position top
+        ##tray_output none
+        #status_command i3blocks #~/Scripts/conky.sh #i3blocks
+        #font pango:Fira Code 10, FontAwesome 8
+        #strip_workspace_numbers yes
+        #colors {
+                #background #2b2b2b
+                #statusline #c0c0c0
+                #separator  #aa7030
+
+                ##color class       border  back.   text
+                #focused_workspace  #ff7030 #ff7030 #ffffff
+                #active_workspace   #555555 #555555 #ffffff
+                #inactive_workspace #2b2b2b #2b2b2b #aaaaaa
+                #urgent_workspace   #2f343a #900000 #ffffff
+        #}
+#}
 
 # Audio controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume
@@ -164,31 +226,24 @@ bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
 #bindsym XF86AudioMute exec amixer -q set Master toggle
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10 && pkill -RTMIN+3 i3blocks
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 && pkill -RTMIN+3 i3blocks
 
 # Touchpad controls
 bindsym $mod+p exec --no-startup-id touchpadtoggle
 #bindsym XF86TouchpadToggle exec touchpadtoggle
-bindsym XF86Search exec --no-startup-id xbacklight -set 5
+bindsym XF86Search exec --no-startup-id xbacklight -set 5 && pkill -RTMIN+3 i3blocks
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec mpc toggle
+bindsym XF86AudioPause exec mpc pause
+bindsym XF86AudioNext exec mpc next
+bindsym XF86AudioPrev exec mpc previous
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        #status_command i3status
-	status_command ~/Scripts/conky.sh
-	position top
-	tray_output primary
-	colors {
-		separator #0000FF
-	}
-}
+
+
 
 #Puush for Arch Linux
 bindsym $mod+Shift+t exec puush -a #Puush entire desktop
@@ -202,6 +257,7 @@ bindsym $mod+x exec idea.sh
 bindsym Ctrl+Mod1+p exec poweroff
 bindsym $mod+z exec files
 bindsym Ctrl+Mod1+o exec --no-startup-id systemctl suspend
+bindsym $mod+q exec enpass
 
 # Alt tab for i3
 bindsym $mod+Tab focus right
@@ -212,8 +268,10 @@ bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
 # Rofi settings, replacing DMENU
-bindsym $mod+d exec --no-startup-id rofi -show run -width 100 -location 2
-bindsym $mod+a exec --no-startup-id rofi -show window -width 100 -location 2
+#bindsym $mod+d exec --no-startup-id rofi -show run -width 100 -location 2 -disable-history
+#bindsym $mod+a exec --no-startup-id rofi -show window -width 100 -location 2 -disable-history
+bindsym $mod+d exec --no-startup-id rofi -show run -terminal urxvt -lines 3 -eh 2 -width 100 -padding 800 -opacity "95" -bw 0 -bc "#282828" -bg "#282828" -fg "#928374" -hlbg "#282828" -hlfg "#ebdbb2"
+bindsym $mod+a exec --no-startup-id rofi -show window -terminal urxvt -lines 3 -eh 2 -width 100 -padding 800 -opacity "95" -bw 0 -bc "#282828" -bg "#282828" -fg "#928374" -hlbg "#282828" -hlfg "#ebdbb2"
 
 # TTY switching
 bindsym $mod+n exec --no-startup-id ~/Scripts/switchterm.sh 2
@@ -225,24 +283,28 @@ smart_gaps on
 bindsym $mod+g exec i3-msg "gaps inner all set 10"
 bindsym $mod+Shift+g exec i3-msg "gaps inner all set 0"
 
-# Auto start
-exec --no-startup-id mailcheck
-#exec --no-startup-id xautolock -time 5 -locker "i3lock -d -u -I 5 -p win -i /home/imegumii/Documents/w8.png -e"
-exec --no-startup-id xautolock -time 5 -locker Scripts/locker.sh -corners 0+0- -cornerdelay 1 -cornerredelay 5
+# Window specific settings
 for_window [class="Main.py" instance="guake"] floating enable
 for_window [instance="sun-awt-X11-XFramePeer"] floating enable
 for_window [class="jetbrains-idea-ce"] floating disable
 for_window [class="jetbrains-studio"] floating disable
+for_window [class="jetbrains-pycharm-ce"] floating disable
 for_window [instance="sun-awt-X11-XDialogPeer"] floating enable
+for_window [class="RV"] floating disable
+for_window [class="JP-co-esm-caddies-jomt-Jude"] floating disable
 assign [class="ownCloud"] 10
+
+
+# Auto start
+#exec --no-startup-id xautolock -time 5 -locker "i3lock -d -u -I 5 -p win -i /home/imegumii/Documents/w8.png -e"
+exec --no-startup-id xautolock -time 5 -locker Scripts/locker.sh -corners 000- -cornerdelay 1 -cornerredelay 5
 exec --no-startup-id guake
-exec --no-startup-id redshift -c .config/redshift.conf
-exec --no-startup-id compton -cb
-exec --no-startup-id feh --bg-scale /home/imegumii/Backgrounds/background.jpg
-exec --no-startup-id owncloud
+exec --no-startup-id python3.5 /home/imegumii/Backgrounds/bgchanger.py /home/imegumii/Backgrounds 10
 exec --no-startup-id dropbox-cli start
-exec --no-startup-id i3lock -i /home/imegumii/Backgrounds/background.png
+#exec --no-startup-id i3lock -i /home/imegumii/Backgrounds/linus.png
 exec --no-startup-id sudo tlp start
+exec --no-startup-id ibus-daemon -drx
+exec --no-startup-id nm-applet
 
 # Remove borders
 new_window pixel 0

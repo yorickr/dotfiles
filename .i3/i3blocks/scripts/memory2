@@ -1,0 +1,16 @@
+#!/bin/bash
+
+inuse=$(free -h | grep -m 1 Mem | awk '{print $3}')
+avail=$(free -h | grep -m 1 Mem | awk '{print $2}')
+
+echo "$inuse/$avail"
+echo "$inuse/$avail"
+
+danger="#FF0000"
+normal="#F2EB85"
+
+if [[ $inuse > 7 ]] ; then
+  echo $danger
+else
+  echo $normal
+fi
