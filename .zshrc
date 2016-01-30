@@ -98,24 +98,31 @@ alias q='exit'
 alias reload='source ~/.zshrc'
 
 #SSH
-alias server='ssh -p 777 imegumii@www.imegumii.nl'
-alias router='ssh -p 778 root@www.imegumii.nl'
-alias digitalocean='ssh imegumii@git.imegumii.nl'
+alias server='ssh -p 777 imegumii@www.imegumii.space'
+alias router='ssh -p 778 root@www.imegumii.space'
+alias digitalocean='ssh imegumii@git.imegumii.space'
 
 #Connman
 alias cmrst='sudo systemctl stop connman.service && sudo systemctl start connman.service'
 
 #Ease of use
 alias psaux='ps aux | grep '
-alias backuphome='rdiff-backup -v5 --exclude /home/imegumii/Dropbox --exclude /home/imegumii/cloud --exclude /home/imegumii/.local --exclude /home/imegumii/.cache --exclude /home/imegumii/Documents/3TB --exclude /home/imegumii/Documents/Drives --exclude /home/imegumii/VirtualBox\ VMs --exclude /home/imegumii/Documents/1TB --exclude /home/imegumii/android --exclude /home/imegumii/.ccache --remote-schema "ssh -C -p 777 %s rdiff-backup --server" /home/imegumii imegumii@www.imegumii.nl::/media/HDD/Backup/Laptop'
+alias backuphome='rdiff-backup -v5 --exclude /home/imegumii/Dropbox --exclude /home/imegumii/cloud --exclude /home/imegumii/.local --exclude /home/imegumii/.cache --exclude /home/imegumii/Documents/3TB --exclude /home/imegumii/Documents/Drives --exclude /home/imegumii/VirtualBox\ VMs --exclude /home/imegumii/Documents/1TB --exclude /home/imegumii/android --exclude /home/imegumii/.ccache --remote-schema "ssh -C -p 777 %s rdiff-backup --server" /home/imegumii imegumii@www.imegumii.space::/media/HDD/Backup/Laptop'
 alias nconn="connman-ncurses"
-alias chromeproxy="killall chromium & chromium --proxy-server="socks://localhost:48000"& ssh -2 -ND 48000 -p 777 imegumii@www.imegumii.nl"
-alias virtman="ssh -p 777 -L localhost:8000:localhost:8000 -L localhost:6080:localhost:6080 imegumii@www.imegumii.nl"
+alias chromeproxy="killall chromium & chromium --proxy-server="socks://localhost:48000"& ssh -2 -ND 48000 -p 777 imegumii@www.imegumii.space"
+alias virtman="ssh -p 777 -L localhost:8000:localhost:8000 -L localhost:6080:localhost:6080 imegumii@www.imegumii.space"
 cdls() {builtin cd "$@" && ls; }
 alias cd=cdls
 alias sizeof='du -d 1 -h'
-alias yaup="yaourt -Syua && sudo paccache -r && sudo paccache -ruk0 &&  yaourt -Rs 'yaourt -Qtdq' "
+
+function yaup()
+{
+  yaourt -Syua && sudo paccache -r && sudo paccache -ruk0 &&  yaourt -Rs $(yaourt -Qtdq)
+}
+
+#alias yaup="yaourt -Syua && sudo paccache -r && sudo paccache -ruk0 &&  yaourt -Rs 'yaourt -Qtdq' "
 alias startxw8="startx /usr/bin/virtualbox --startvm 6df6044b-26be-415f-8e78-3f1e7d149399 --fullscreen"
+alias startxw10="startx /usr/bin/virtualbox --fullscreen --startvm 30c0fcce-9ac7-49b4-9f57-acbc9bca156e"
 
 #Audio
 alias audioserver='sh ~/Scripts/setaudioserver.sh s'

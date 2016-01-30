@@ -13,5 +13,5 @@ print(mem)
 
 print(mem.available)
 
-print((mem.available / (1000*1000)))
-print((mem.active / (1000*1000)))
+print((mem.available / (1024*1024)))
+print((mem.used / (1024*1024)))
