@@ -1,3 +1,14 @@
+set $w1 "1"
+set $w2 "2"
+set $w3 "3"
+set $w4 "4"
+set $w5 "5"
+set $w6 "6"
+set $w7 "7"
+set $w8 "8"
+set $w9 "9"
+set $w10 "10"
+
 set $mod Mod4
 set $term xfce4-terminal
 
@@ -9,18 +20,6 @@ bindsym $mod+Return exec --no-startup-id $term
 
 # kill focused window
 bindsym $mod+Shift+q kill
-
-# change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -57,28 +56,28 @@ bindsym $mod+Shift+space floating toggle
 workspace_layout default
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace $w1
+bindsym $mod+2 workspace $w2
+bindsym $mod+3 workspace $w3
+bindsym $mod+4 workspace $w4
+bindsym $mod+5 workspace $w5
+bindsym $mod+6 workspace $w6
+bindsym $mod+7 workspace $w7
+bindsym $mod+8 workspace $w8
+bindsym $mod+9 workspace $w9
+bindsym $mod+0 workspace $w10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace $w1
+bindsym $mod+Shift+2 move container to workspace $w2
+bindsym $mod+Shift+3 move container to workspace $w3
+bindsym $mod+Shift+4 move container to workspace $w4
+bindsym $mod+Shift+5 move container to workspace $w5
+bindsym $mod+Shift+6 move container to workspace $w6
+bindsym $mod+Shift+7 move container to workspace $w7
+bindsym $mod+Shift+8 move container to workspace $w8
+bindsym $mod+Shift+9 move container to workspace $w9
+bindsym $mod+Shift+0 move container to workspace $w10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -137,7 +136,7 @@ bar {
         font pango:Fira Code 10, FontAwesome 8
         strip_workspace_numbers yes
 
-				colors {
+        colors {
         separator $base03
         background $base01
         statusline $base05
@@ -188,16 +187,16 @@ bindsym $mod+p exec --no-startup-id touchpadtoggle
 bindsym XF86Search exec --no-startup-id xbacklight -set 5 && pkill -RTMIN+3 i3blocks
 
 # Media player controls
-bindsym XF86AudioPlay exec mpc toggle
-bindsym XF86AudioPause exec mpc pause
-bindsym XF86AudioNext exec mpc next
-bindsym XF86AudioPrev exec mpc previous
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 #Puush for Arch Linux
-bindsym $mod+Shift+t exec puush -a #Puush entire desktop
-#bindsym $mod+Shift+y exec puush -b #Puush select area
-bindsym $mod+Shift+y exec puush -c #Puush current window
-bindsym $mod+Shift+u exec puush -d #Puush file
+bindsym $mod+Shift+t exec puush -c -f #Puush entire desktop
+bindsym $mod+Shift+u exec puush -c -a #Puush select area
+bindsym $mod+Shift+y exec puush -c -w #Puush current window
+#bindsym $mod+Shift+u exec puush -d #Puush file*/
 
 # Keybindings for certain programs
 bindsym $mod+c exec chromium --force-device-scale-factor=1
@@ -215,6 +214,10 @@ bindsym $mod+Shift+Tab focus left
 # Scratchpad
 bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
+
+# Libinput-gestures
+bindsym $mod+Right workspace next
+bindsym $mod+Left workspace prev
 
 # Rofi settings, replacing DMENU
 bindsym $mod+d exec --no-startup-id rofi -show run -terminal urxvt -lines 3 -eh 2 -width 100 -padding 470 -opacity "75" -bw 0 -bc "#282828" -bg "#282828" -fg "#6699CC" -hlbg "#6699CC" -hlfg "#1B2B34"
@@ -243,12 +246,14 @@ for_window [class="JP-co-esm-caddies-jomt-Jude"] floating disable
 for_window [instance="cairo-dock"] floating enable
 for_window [instance="sun-awt-X11-XDialogPeer"] floating enable
 assign [class="ownCloud"] 10
-assign [class="Enpass-Desktop-RC"] 10
+assign [class="Thunderbird"] 10
 
 # Auto start
+exec --no-startup-id gnome-keyring-daemon --start
 exec --no-startup-id xautolock -time 5 -locker Scripts/locker.sh -corners 000- -cornerdelay 1 -cornerredelay 5
 exec --no-startup-id guake
-exec --no-startup-id python3.5 /home/imegumii/Backgrounds/bgchanger.py /home/imegumii/Backgrounds 2
+#exec --no-startup-id python3.5 /home/imegumii/Backgrounds/bgchanger.py /home/imegumii/Backgrounds 2
+exec_always --no-startup-id feh --bg-scale /home/imegumii/Backgrounds/currentbg.jpg
 exec --no-startup-id dropbox-cli start
 #exec --no-startup-id i3lock -i /home/imegumii/Backgrounds/linus.png
 exec --no-startup-id sudo tlp start
@@ -258,7 +263,8 @@ exec --no-startup-id compton -o 0.3 --backend glx --vsync opengl -b -i 1.0
 #exec --no-startup-id enpass
 #exec --no-startup-id owncloud
 exec --no-startup-id pasystray
-
+exec --no-startup-id libinput-gestures
+exec --no-startup-id thunderbird
 
 # Remove borders
 new_window pixel 0
