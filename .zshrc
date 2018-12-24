@@ -1,20 +1,33 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/home/imegumii/.oh-my-zsh
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+# Path to your oh-my-zsh installation.
+export ZSH="/home/yorickr/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="dpoggi"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -23,7 +36,7 @@ ZSH_THEME="dpoggi"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+#ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -35,24 +48,29 @@ ZSH_THEME="dpoggi"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+  git
+)
+
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 # export MANPATH="/usr/local/man:$MANPATH"
-
-source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -68,7 +86,7 @@ source $ZSH/oh-my-zsh.sh
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -78,58 +96,21 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
 
 export VISUAL=vim
 export EDITOR=vim
+
+# Path changes
 if [ -d "$HOME/bin" ] ; then
       PATH="$HOME/bin:$PATH"
 fi
-export USE_CCACHE=1
-export GTK_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-export QT_IM_MODULE=ibus
+export PATH="$PATH:/opt/Qt/5.9.2/gcc_64/bin"
 
-alias autoclick='watch -n 0.1 xdotool click 1'
-
-alias fu='sudo $(fc -ln -1)'
-
-alias q='exit'
-alias reload='source ~/.zshrc'
-
-#SSH
-alias server='ssh -p 777 imegumii@www.imegumii.space'
-alias router='ssh -p 778 root@www.imegumii.space'
-alias digitalocean='ssh imegumii@git.imegumii.space'
-
-#Connman
-alias cmrst='sudo systemctl stop connman.service && sudo systemctl start connman.service'
-
-#Ease of use
-alias psaux='ps aux | grep '
-alias backuphome='rdiff-backup -v5 --exclude /home/imegumii/Dropbox --exclude /home/imegumii/cloud --exclude /home/imegumii/.local --exclude /home/imegumii/.cache --exclude /home/imegumii/Documents/3TB --exclude /home/imegumii/Documents/Drives --exclude /home/imegumii/VirtualBox\ VMs --exclude /home/imegumii/Documents/1TB --exclude /home/imegumii/android --exclude /home/imegumii/.ccache --remote-schema "ssh -C -p 777 %s rdiff-backup --server" /home/imegumii imegumii@www.imegumii.space::/media/HDD/Backup/Laptop'
-alias nconn="connman-ncurses"
-alias chromeproxy="killall chromium & chromium --proxy-server="socks://localhost:48000"& ssh -2 -ND 48000 -p 777 imegumii@www.imegumii.space"
-alias virtman="ssh -p 777 -L localhost:8000:localhost:8000 -L localhost:6080:localhost:6080 imegumii@www.imegumii.space"
-cdls() {builtin cd "$@" && ls; }
+alias reload="source ~/.zshrc"
+alias q="exit"
+cdls () { builtin cd "$@" && ls; }
 alias cd=cdls
-alias sizeof='du -d 1 -h'
-
-function yaup()
-{
-  yaourt -Syua && sudo paccache -r && sudo paccache -ruk0 &&  yaourt -Rs $(yaourt -Qtdq)
-}
-
-#alias yaup="yaourt -Syua && sudo paccache -r && sudo paccache -ruk0 &&  yaourt -Rs 'yaourt -Qtdq' "
-alias startxw8="startx /usr/bin/virtualbox --startvm 6df6044b-26be-415f-8e78-3f1e7d149399 --fullscreen"
-alias startxw10="startx /usr/bin/virtualbox --fullscreen --startvm 30c0fcce-9ac7-49b4-9f57-acbc9bca156e"
-
-#Audio
-alias audioserver='sh ~/Scripts/setaudioserver.sh s'
-alias audiolocal='sh ~/Scripts/setaudioserver.sh'
-
-#Music
-#alias mp='sh ~/Scripts/mp.sh'
+alias upd="sudo apt update && sudo apt upgrade"
 
 #Basic commands
 alias mv='mv -v'
@@ -153,14 +134,8 @@ alias sta='git stash'
 alias rmorig='find -name "*.orig" -exec rm {} \;'
 
 
-# Auto startx depending on the tty
-#if [[ -z $DISPLAY ]] && (( $EUID != 0 )) {
-     #[[ ${TTY/tty} != $TTY ]] && (( ${TTY:8:1} <= 3 )) &&
-               #exec startx &
-#}
+#if [ -n "$DESKTOP_SESSION" ];then
+  #eval $(gnome-keyring-daemon --start)
+  #export SSH_AUTH_SOCK
+#fi
 
-
-if [ -n "$DESKTOP_SESSION" ];then
-  eval $(gnome-keyring-daemon --start)
-  export SSH_AUTH_SOCK
-fi
