@@ -110,7 +110,7 @@ alias reload="source ~/.zshrc"
 alias q="exit"
 cdls () { builtin cd "$@" && ls; }
 alias cd=cdls
-alias upd="sudo apt update && sudo apt upgrade"
+alias upd="sudo apt update && sudo apt upgrade && sudo apt autoremove"
 
 #Basic commands
 alias mv='mv -v'
@@ -130,6 +130,9 @@ alias gtl='git tag -l -n9'
 alias gpus='git push'
 alias gpul='git pull'
 alias gm='git merge'
+alias gr='git reset'
+alias gdf='git diff'
+alias gsm='git submodule'
 alias sta='git stash'
 alias rmorig='find -name "*.orig" -exec rm {} \;'
 
@@ -138,4 +141,8 @@ alias rmorig='find -name "*.orig" -exec rm {} \;'
   #eval $(gnome-keyring-daemon --start)
   #export SSH_AUTH_SOCK
 #fi
-
+# Focus ssh
+#
+if [ -f "$HOME/.hotraco_alias" ]; then
+  source "$HOME/.hotraco_alias"
+fi
