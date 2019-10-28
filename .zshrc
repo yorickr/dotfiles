@@ -104,13 +104,12 @@ export EDITOR=vim
 if [ -d "$HOME/bin" ] ; then
       PATH="$HOME/bin:$PATH"
 fi
-export PATH="$PATH:/opt/Qt/5.9.2/gcc_64/bin"
 
 alias reload="source ~/.zshrc"
 alias q="exit"
 cdls () { builtin cd "$@" && ls; }
 alias cd=cdls
-alias upd="sudo apt update && sudo apt upgrade && sudo apt autoremove"
+alias upd="sudo apt update && sudo apt upgrade && sudo apt autoremove && sudo apt clean"
 
 #Basic commands
 alias mv='mv -v'
@@ -131,11 +130,15 @@ alias gpus='git push'
 alias gpul='git pull'
 alias gm='git merge'
 alias gr='git reset'
-alias gdf='git diff'
+alias greb='git rebase'
+alias gdf='git diff --ignore-space-change'
 alias gsm='git submodule'
 alias sta='git stash'
 alias rmorig='find -name "*.orig" -exec rm {} \;'
-
+alias gsmco='git submodule foreach git checkout'
+alias gsmcob='git submodule foreach git checkout -b'
+alias gsmpus='git submodule foreach git push origin'
+alias gche='git cherry-pick'
 
 #if [ -n "$DESKTOP_SESSION" ];then
   #eval $(gnome-keyring-daemon --start)
