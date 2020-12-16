@@ -132,21 +132,20 @@ alias gm='git merge'
 alias gr='git reset'
 alias greb='git rebase'
 alias gdf='git diff --ignore-space-change'
-alias gsm='git submodule'
 alias sta='git stash'
 alias rmorig='find -name "*.orig" -exec rm {} \;'
 alias rmrej='find -name "*.rej" -exec rm {} \;'
-alias gsmco='git submodule foreach git checkout'
-alias gsmcob='git submodule foreach git checkout -b'
-alias gsmpus='git submodule foreach git push origin'
 alias gche='git cherry-pick'
 
 #if [ -n "$DESKTOP_SESSION" ];then
   #eval $(gnome-keyring-daemon --start)
   #export SSH_AUTH_SOCK
 #fi
-# Focus ssh
-#
+
 if [ -f "$HOME/.hotraco_alias" ]; then
   source "$HOME/.hotraco_alias"
+fi
+
+if [ -f "$HOME/.ecotap_alias" ]; then
+  source "$HOME/.ecotap_alias"
 fi
