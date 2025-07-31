@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/yorickr/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -64,6 +64,7 @@ export UPDATE_ZSH_DAYS=13
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  asdf
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -105,11 +106,14 @@ if [ -d "$HOME/bin" ] ; then
       PATH="$HOME/bin:$PATH"
 fi
 
+
+PATH="$PATH:$HOME/.local/bin"
+
 alias reload="source ~/.zshrc"
 alias q="exit"
 cdls () { builtin cd "$@" && ls; }
 alias cd=cdls
-alias upd="sudo apt update && sudo apt upgrade && sudo apt autoremove && sudo apt clean"
+alias upd="sudo apt update && sudo apt upgrade && sudo apt autoremove && sudo apt clean && fwupdmgr refresh ; fwupdmgr get-updates"
 
 #Basic commands
 alias mv='mv -v'
@@ -137,15 +141,23 @@ alias rmorig='find -name "*.orig" -exec rm {} \;'
 alias rmrej='find -name "*.rej" -exec rm {} \;'
 alias gche='git cherry-pick'
 
-#if [ -n "$DESKTOP_SESSION" ];then
-  #eval $(gnome-keyring-daemon --start)
-  #export SSH_AUTH_SOCK
-#fi
+alias wg='sudo wg-quick up wg0'
+alias wg-down='sudo wg-quick down wg0'
 
-if [ -f "$HOME/.hotraco_alias" ]; then
-  source "$HOME/.hotraco_alias"
+
+if [ -f "$HOME/.sendcloud_alias" ]; then
+  source "$HOME/.sendcloud_alias"
 fi
 
-if [ -f "$HOME/.ecotap_alias" ]; then
-  source "$HOME/.ecotap_alias"
-fi
+eval "$(fzf --zsh)"
+
+eval "$(zoxide init zsh)"
+
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
+eval "$(colima completion zsh)"
+
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+zstyle ':completion:*' menu select
